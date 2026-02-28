@@ -1,4 +1,5 @@
 import SwiftUI
+import Observation
 
 struct HostContentView: View {
     @State private var receiver = AudioReceiver()
@@ -67,10 +68,30 @@ struct HostContentView: View {
     // MARK: - Main View
 
     private var mainView: some View {
-        VStack(spacing: 20) {
+        @Bindable var receiver = receiver
+
+        return VStack(spacing: 20) {
             Text("iMic Host")
                 .font(.largeTitle)
                 .fontWeight(.bold)
+
+            VStack(spacing: 10) {
+                Text("Connection Mode")
+                    .font(.headline)
+
+                Picker("Connection Mode", selection: $receiver.transportMode) {
+                    ForEach(AudioReceiver.TransportMode.allCases) { mode in
+                        Text(mode.rawValue).tag(mode)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .disabled(receiver.connectionState != "Idle")
+
+                Text("Direct mode enables Apple's peer-to-peer transport, which can use Wi-Fi and Bluetooth during discovery and connection.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+            }
 
             GroupBox("Connection") {
                 VStack(alignment: .leading, spacing: 8) {

@@ -234,6 +234,24 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		DD00000300000000000DD003 /* Embed Driver */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Driver";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -d \"${BUILT_PRODUCTS_DIR}/iMicDriver.driver\" ]; then\n  rm -rf \"${BUILT_PRODUCTS_DIR}/iMicHost.app/Contents/Resources/iMicDriver.driver\"\n  cp -R \"${BUILT_PRODUCTS_DIR}/iMicDriver.driver\" \"${BUILT_PRODUCTS_DIR}/iMicHost.app/Contents/Resources/\"\nelse\n  echo \"warning: iMicDriver.driver not found. Build the iMicDriver target first.\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		71540CCF2F52C26E00B59F53 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -257,24 +275,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		DD00000300000000000DD003 /* Embed Driver */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Driver";
-			outputPaths = (
-			);
-			alwaysOutOfDate = 1;
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ -d \"${BUILT_PRODUCTS_DIR}/iMicDriver.driver\" ]; then\n  rm -rf \"${BUILT_PRODUCTS_DIR}/iMicHost.app/Contents/Resources/iMicDriver.driver\"\n  cp -R \"${BUILT_PRODUCTS_DIR}/iMicDriver.driver\" \"${BUILT_PRODUCTS_DIR}/iMicHost.app/Contents/Resources/\"\nelse\n  echo \"warning: iMicDriver.driver not found. Build the iMicDriver target first.\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		71540CDC2F52C26E00B59F53 /* Debug */ = {

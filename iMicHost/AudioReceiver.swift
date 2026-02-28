@@ -5,20 +5,42 @@ import Observation
 @Observable
 @MainActor
 final class AudioReceiver {
+    enum TransportMode: String, CaseIterable, Identifiable {
+        case localNetwork = "Wi-Fi / LAN"
+        case peerToPeer = "Direct (Wi-Fi/Bluetooth)"
+
+        var id: Self { self }
+
+        var includesPeerToPeer: Bool {
+            self == .peerToPeer
+        }
+    }
+
     var connectionState: String = "Idle"
     var peerName: String?
+    var transportMode: TransportMode = .localNetwork
 
     private var browser: NWBrowser?
     private var connection: NWConnection?
     private let ringBuffer = SharedRingBuffer()
     private let queue = DispatchQueue(label: "com.imic.receiver", qos: .userInteractive)
+    private var restartTask: Task<Void, Never>?
+    private var isRunning = false
 
     func start() {
+        restartTask?.cancel()
+        isRunning = true
+
+        browser?.cancel()
+        browser = nil
+        connection?.cancel()
+        connection = nil
+
         connectionState = "Browsing..."
         peerName = nil
 
         let params = NWParameters()
-        params.includePeerToPeer = true
+        params.includePeerToPeer = transportMode.includesPeerToPeer
 
         let browser = NWBrowser(for: .bonjour(type: "_imic._tcp", domain: nil), using: params)
         self.browser = browser
@@ -27,10 +49,13 @@ final class AudioReceiver {
             Task { @MainActor [weak self] in
                 guard let self else { return }
                 switch state {
+                case .waiting(let error):
+                    self.connectionState = "Waiting for network path… \(error)"
                 case .ready:
                     self.connectionState = "Browsing..."
                 case .failed(let error):
                     self.connectionState = "Browse failed: \(error)"
+                    self.browser = nil
                     self.scheduleRestart()
                 default:
                     break
@@ -50,6 +75,9 @@ final class AudioReceiver {
     }
 
     func stop() {
+        isRunning = false
+        restartTask?.cancel()
+        restartTask = nil
         browser?.cancel()
         browser = nil
         connection?.cancel()
@@ -67,6 +95,7 @@ final class AudioReceiver {
         }
 
         let params = NWParameters.tcp
+        params.includePeerToPeer = transportMode.includesPeerToPeer
         let conn = NWConnection(to: result.endpoint, using: params)
         self.connection = conn
 
@@ -76,6 +105,8 @@ final class AudioReceiver {
                 switch state {
                 case .preparing:
                     self.connectionState = "Connecting..."
+                case .waiting(let error):
+                    self.connectionState = "Connection interrupted: \(error)"
                 case .ready:
                     self.connectionState = "Connected"
                     self.receiveFrameHeader(on: conn)
@@ -158,9 +189,10 @@ final class AudioReceiver {
     }
 
     private func scheduleRestart() {
-        Task { @MainActor [weak self] in
+        restartTask?.cancel()
+        restartTask = Task { @MainActor [weak self] in
             try? await Task.sleep(for: .seconds(2))
-            guard let self, self.connection == nil else { return }
+            guard let self, self.isRunning, self.connection == nil, self.browser == nil else { return }
             self.start()
         }
     }

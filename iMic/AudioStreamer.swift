@@ -16,12 +16,24 @@ import UIKit
 @MainActor
 final class AudioStreamer {
 
+    enum TransportMode: String, CaseIterable, Identifiable {
+        case localNetwork = "Wi-Fi / LAN"
+        case peerToPeer = "Direct (Wi-Fi/Bluetooth)"
+
+        var id: Self { self }
+
+        var includesPeerToPeer: Bool {
+            self == .peerToPeer
+        }
+    }
+
     // MARK: - Published state
 
     var isStreaming = false
     var statusText = "Ready"
     var connectedPeer: String? = nil
     var serviceName: String? = nil
+    var transportMode: TransportMode = .localNetwork
 
     // MARK: - Private
 
@@ -132,16 +144,25 @@ final class AudioStreamer {
     // MARK: - Network Listener
 
     private func startListener() throws {
-        let listener = try NWListener(using: .tcp)
+        let params = NWParameters.tcp
+        params.allowLocalEndpointReuse = true
+        params.includePeerToPeer = transportMode.includesPeerToPeer
+
+        let listener = try NWListener(using: params)
         listener.service = NWListener.Service(type: "_imic._tcp")
 
         listener.stateUpdateHandler = { [weak self] state in
             Task { @MainActor [weak self] in
                 guard let self else { return }
                 switch state {
+                case .waiting(let error):
+                    self.statusText = "Waiting for network path… \(error.localizedDescription)"
                 case .ready:
                     if let port = self.listener?.port {
                         self.serviceName = "\(self.deviceName) (port \(port))"
+                    }
+                    if self.connection == nil {
+                        self.statusText = "Waiting for Mac…"
                     }
                 case .failed(let error):
                     self.statusText = "Listener failed: \(error.localizedDescription)"
@@ -179,6 +200,8 @@ final class AudioStreamer {
             Task { @MainActor [weak self] in
                 guard let self else { return }
                 switch state {
+                case .waiting(let error):
+                    self.statusText = "Connection interrupted… \(error.localizedDescription)"
                 case .ready:
                     let endpoint = newConnection.endpoint
                     if case .hostPort(let host, _) = endpoint {
@@ -188,7 +211,7 @@ final class AudioStreamer {
                     }
                     self.statusText = "Streaming…"
                 case .failed(let error):
-                    self.statusText = "Connection lost: \(error.localizedDescription)"
+                    self.statusText = "Connection lost: \(error.localizedDescription). Waiting for Mac…"
                     self.connectedPeer = nil
                     self.connection = nil
                     self.activeConnection = nil

@@ -6,17 +6,39 @@
 //
 
 import SwiftUI
+import Observation
 
 struct ContentView: View {
     @State var streamer = AudioStreamer()
 
     var body: some View {
+        @Bindable var streamer = streamer
+
         VStack(spacing: 32) {
             Spacer()
 
             Text("iMic")
                 .font(.largeTitle)
                 .fontWeight(.bold)
+
+            VStack(spacing: 10) {
+                Text("Connection")
+                    .font(.headline)
+
+                Picker("Connection", selection: $streamer.transportMode) {
+                    ForEach(AudioStreamer.TransportMode.allCases) { mode in
+                        Text(mode.rawValue).tag(mode)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .disabled(streamer.isStreaming)
+
+                Text("Direct mode enables Apple's peer-to-peer transport, which can use Wi-Fi and Bluetooth for discovery.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+            }
+            .padding(.horizontal)
 
             Button {
                 if streamer.isStreaming {
