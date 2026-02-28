@@ -8,18 +8,67 @@
 
 /* Begin PBXFileReference section */
 		71540CD32F52C26E00B59F53 /* iMic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iMic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA00000100000000000AA001 /* iMicHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iMicHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB00000100000000000BB001 /* iMicDriver.driver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iMicDriver.driver; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CC00000100000000000CC001 /* Exceptions for "iMic" folder in "iMic" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 71540CD22F52C26E00B59F53 /* iMic */;
+		};
+		CC00000200000000000CC002 /* Exceptions for "iMicDriver" folder in "iMicDriver" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = BB00000600000000000BB006 /* iMicDriver */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		71540CD52F52C26E00B59F53 /* iMic */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CC00000100000000000CC001 /* Exceptions for "iMic" folder in "iMic" target */,
+			);
 			path = iMic;
+			sourceTree = "<group>";
+		};
+		AA00000200000000000AA002 /* iMicHost */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = iMicHost;
+			sourceTree = "<group>";
+		};
+		BB00000200000000000BB002 /* iMicDriver */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CC00000200000000000CC002 /* Exceptions for "iMicDriver" folder in "iMicDriver" target */,
+			);
+			path = iMicDriver;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		71540CD02F52C26E00B59F53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA00000400000000000AA004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB00000400000000000BB004 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +82,8 @@
 			isa = PBXGroup;
 			children = (
 				71540CD52F52C26E00B59F53 /* iMic */,
+				AA00000200000000000AA002 /* iMicHost */,
+				BB00000200000000000BB002 /* iMicDriver */,
 				71540CD42F52C26E00B59F53 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +92,8 @@
 			isa = PBXGroup;
 			children = (
 				71540CD32F52C26E00B59F53 /* iMic.app */,
+				AA00000100000000000AA001 /* iMicHost.app */,
+				BB00000100000000000BB001 /* iMicDriver.driver */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +123,51 @@
 			productReference = 71540CD32F52C26E00B59F53 /* iMic.app */;
 			productType = "com.apple.product-type.application";
 		};
+		AA00000600000000000AA006 /* iMicHost */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA00000900000000000AA009 /* Build configuration list for PBXNativeTarget "iMicHost" */;
+			buildPhases = (
+				AA00000300000000000AA003 /* Sources */,
+				AA00000400000000000AA004 /* Frameworks */,
+				AA00000500000000000AA005 /* Resources */,
+				DD00000300000000000DD003 /* Embed Driver */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				AA00000200000000000AA002 /* iMicHost */,
+			);
+			name = iMicHost;
+			packageProductDependencies = (
+			);
+			productName = iMicHost;
+			productReference = AA00000100000000000AA001 /* iMicHost.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BB00000600000000000BB006 /* iMicDriver */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB00000900000000000BB009 /* Build configuration list for PBXNativeTarget "iMicDriver" */;
+			buildPhases = (
+				BB00000300000000000BB003 /* Sources */,
+				BB00000400000000000BB004 /* Frameworks */,
+				BB00000500000000000BB005 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				BB00000200000000000BB002 /* iMicDriver */,
+			);
+			name = iMicDriver;
+			packageProductDependencies = (
+			);
+			productName = iMicDriver;
+			productReference = BB00000100000000000BB001 /* iMicDriver.driver */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -81,6 +179,12 @@
 				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					71540CD22F52C26E00B59F53 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					AA00000600000000000AA006 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					BB00000600000000000BB006 = {
 						CreatedOnToolsVersion = 26.3;
 					};
 				};
@@ -100,12 +204,28 @@
 			projectRoot = "";
 			targets = (
 				71540CD22F52C26E00B59F53 /* iMic */,
+				AA00000600000000000AA006 /* iMicHost */,
+				BB00000600000000000BB006 /* iMicDriver */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		71540CD12F52C26E00B59F53 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA00000500000000000AA005 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB00000500000000000BB005 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +242,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA00000300000000000AA003 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB00000300000000000BB003 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DD00000300000000000DD003 /* Embed Driver */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Driver";
+			outputPaths = (
+			);
+			alwaysOutOfDate = 1;
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -d \"${BUILT_PRODUCTS_DIR}/iMicDriver.driver\" ]; then\n  rm -rf \"${BUILT_PRODUCTS_DIR}/iMicHost.app/Contents/Resources/iMicDriver.driver\"\n  cp -R \"${BUILT_PRODUCTS_DIR}/iMicDriver.driver\" \"${BUILT_PRODUCTS_DIR}/iMicHost.app/Contents/Resources/\"\nelse\n  echo \"warning: iMicDriver.driver not found. Build the iMicDriver target first.\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		71540CDC2F52C26E00B59F53 /* Debug */ = {
@@ -254,6 +406,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iMic/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -264,24 +417,19 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = to.yumi.iMic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				REGISTER_APP_GROUPS = YES;
-				SDKROOT = auto;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 26.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -298,6 +446,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iMic/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -308,24 +457,119 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = to.yumi.iMic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				REGISTER_APP_GROUPS = YES;
-				SDKROOT = auto;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 26.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AA00000700000000000AA007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iMicHost/iMicHost.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AN5KM8QGEF;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = to.yumi.iMicHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		AA00000800000000000AA008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iMicHost/iMicHost.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AN5KM8QGEF;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = to.yumi.iMicHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		BB00000700000000000BB007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AN5KM8QGEF;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iMicDriver/Info.plist;
+				INSTALL_PATH = "/Library/Audio/Plug-Ins/HAL";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = to.yumi.iMicDriver;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				WRAPPER_EXTENSION = driver;
+			};
+			name = Debug;
+		};
+		BB00000800000000000BB008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AN5KM8QGEF;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iMicDriver/Info.plist;
+				INSTALL_PATH = "/Library/Audio/Plug-Ins/HAL";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = to.yumi.iMicDriver;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				WRAPPER_EXTENSION = driver;
 			};
 			name = Release;
 		};
@@ -346,6 +590,24 @@
 			buildConfigurations = (
 				71540CDF2F52C26E00B59F53 /* Debug */,
 				71540CE02F52C26E00B59F53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA00000900000000000AA009 /* Build configuration list for PBXNativeTarget "iMicHost" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA00000700000000000AA007 /* Debug */,
+				AA00000800000000000AA008 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BB00000900000000000BB009 /* Build configuration list for PBXNativeTarget "iMicDriver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB00000700000000000BB007 /* Debug */,
+				BB00000800000000000BB008 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
