@@ -1,0 +1,9 @@
+// Example signing settings; copy to Config/Signing.xcconfig and fill in real values.
+DEVELOPMENT_TEAM = YOUR_TEAM_ID
+CODE_SIGN_STYLE = Automatic
+CODE_SIGN_IDENTITY = "Developer ID Application: YOUR NAME (TEAMID)"
+
+// Notarization trigger settings (not consumed by Xcode but useful for release scripts).
+NOTARY_APPLE_ID = your-apple-id@example.com
+NOTARY_TEAM_ID = YOUR_TEAM_ID
+NOTARY_APP_PASSWORD = app-specific-password

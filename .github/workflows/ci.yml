@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build iMicDriver
+        run: xcodebuild -project iMic.xcodeproj -scheme iMicDriver -configuration Release CODE_SIGNING_ALLOWED=NO
+
+      - name: Build iMicHost
+        run: xcodebuild -project iMic.xcodeproj -scheme iMicHost -configuration Release CODE_SIGNING_ALLOWED=NO
+
+      - name: Build iMic (iOS)
+        run: xcodebuild -project iMic.xcodeproj -scheme iMic -configuration Release CODE_SIGNING_ALLOWED=NO -destination 'generic/platform=iOS'

@@ -2,3 +2,11 @@ build/
 DerivedData/
 *.xcuserstate
 xcuserdata/
+.DS_Store
+*.dSYM
+*.xcarchive
+*.ipa
+*.dmg
+*.zip
+dist/
+Config/Signing.xcconfig

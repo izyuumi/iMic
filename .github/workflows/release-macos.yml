@@ -1,0 +1,71 @@
+name: Release macOS
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate signing config
+        run: ./Scripts/release/generate-signing-config.sh
+        env:
+          DEVELOPMENT_TEAM: ${{ secrets.MACOS_DEVELOPMENT_TEAM }}
+          CODE_SIGN_IDENTITY: ${{ secrets.MACOS_CODE_SIGN_IDENTITY }}
+          NOTARY_APPLE_ID: ${{ secrets.NOTARY_APPLE_ID }}
+          NOTARY_TEAM_ID: ${{ secrets.NOTARY_TEAM_ID }}
+          NOTARY_APP_PASSWORD: ${{ secrets.NOTARY_APP_PASSWORD }}
+          NOTARY_PROFILE: ${{ secrets.NOTARY_PROFILE }}
+
+      - name: Build mac artifacts
+        run: ./Scripts/release/build-mac.sh
+
+      - name: Package mac release
+        run: ./Scripts/release/package-mac.sh
+        env:
+          DEVELOPMENT_TEAM: ${{ secrets.MACOS_DEVELOPMENT_TEAM }}
+          CODE_SIGN_IDENTITY: ${{ secrets.MACOS_CODE_SIGN_IDENTITY }}
+
+      - name: Notarize mac release
+        run: ./Scripts/release/notarize-mac.sh
+        env:
+          NOTARY_APPLE_ID: ${{ secrets.NOTARY_APPLE_ID }}
+          NOTARY_TEAM_ID: ${{ secrets.NOTARY_TEAM_ID }}
+          NOTARY_APP_PASSWORD: ${{ secrets.NOTARY_APP_PASSWORD }}
+          NOTARY_PROFILE: ${{ secrets.NOTARY_PROFILE }}
+
+      - name: Validate signed app
+        run: ./Scripts/release/check-mac.sh
+
+      - name: Load release metadata
+        run: |
+          source dist/release-metadata.env
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "ZIP_FILE=$ZIP_FILE" >> $GITHUB_ENV
+          echo "ZIP_FILE_REL=$ZIP_FILE_REL" >> $GITHUB_ENV
+          echo "ZIP_SHA256=$ZIP_SHA256" >> $GITHUB_ENV
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          files: ${{ env.ZIP_FILE_REL }}
+          body: |
+            Automated release for macOS host v${{ env.VERSION }}.
+
+      - name: Update Homebrew tap
+        run: ./Scripts/release/update-tap.sh
+        env:
+          GH_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          HOMEBREW_TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          HOMEBREW_TAP_URL: https://github.com/izyuumi/homebrew-tap
